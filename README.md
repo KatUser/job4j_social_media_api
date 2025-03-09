@@ -9,3 +9,5 @@ _Цель проекта_: Разработать RESTful API для социа�
 - База данных: Рекомендуется использовать PostgreSQL или MySQL
 - Аутентификация и авторизация: Spring Security
 - Документация API: Swagger или OpenAPI
+
+https://github.com/KatUser/job4j_social_media_api/actions/workflows/maven_no_graph.yml/badge.svg
