@@ -10,4 +10,4 @@ _Цель проекта_: Разработать RESTful API для социа�
 - Аутентификация и авторизация: Spring Security
 - Документация API: Swagger или OpenAPI
 
-https://github.com/KatUser/job4j_social_media_api/actions/workflows/maven_no_graph.yml/badge.svg
+![](https://github.com/KatUser/job4j_social_media_api/actions/workflows/maven_no_graph.yml/badge.svg)
