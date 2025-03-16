@@ -1,0 +1,7 @@
+CREATE TABLE app_user
+(
+    id SERIAL PRIMARY KEY,
+    name VARCHAR NOT NULL UNIQUE,
+    password VARCHAR NOT NULL,
+    email TEXT NOT NULL
+);
