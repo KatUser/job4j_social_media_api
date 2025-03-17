@@ -17,7 +17,8 @@ public class Picture {
     @EqualsAndHashCode.Include
     private int id;
 
-    private int postId;
+    @ManyToOne
+    private Post post;
 
     private String path;
 }

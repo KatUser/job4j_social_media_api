@@ -17,9 +17,10 @@ public class ActivityFeed {
     @EqualsAndHashCode.Include
     private int id;
 
-    private int userId;
+    @OneToOne
+    @JoinColumn(name = "user_id")
+    private User user;
 
     @OneToMany
     private List<Post> post;
-
 }

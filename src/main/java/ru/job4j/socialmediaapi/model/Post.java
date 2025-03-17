@@ -20,7 +20,8 @@ public class Post {
     @EqualsAndHashCode.Include
     private int id;
 
-    private int userId;
+    @OneToOne
+    private User user;
 
     private LocalDateTime created;
 

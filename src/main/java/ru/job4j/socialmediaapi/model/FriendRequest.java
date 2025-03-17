@@ -19,10 +19,14 @@ public class FriendRequest {
 
     private LocalDateTime created;
 
-    private int userFrom;
+    @ManyToMany
+    @JoinColumn(name = "user_id")
+    private User userFrom;
 
-    private int userTo;
+    @ManyToMany
+    @JoinColumn(name = "user_id")
+    private User userTo;
 
-    boolean accepted = false;
+    private boolean accepted = false;
 
 }

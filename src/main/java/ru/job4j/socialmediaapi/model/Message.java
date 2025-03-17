@@ -2,10 +2,7 @@ package ru.job4j.socialmediaapi.model;
 
 import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Getter
@@ -22,9 +19,13 @@ public class Message {
 
     private LocalDateTime created;
 
-    private int userFrom;
+    @ManyToMany
+    @JoinColumn(name = "user_id")
+    private User userFrom;
 
-    private int userTo;
+    @ManyToMany
+    @JoinColumn(name = "user_id")
+    private User userTo;
 
     private String text;
 }
