@@ -19,10 +19,10 @@ public class Message {
 
     private LocalDateTime created;
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToOne
     private User userFrom;
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToOne
     private User userTo;
 
     private String text;

@@ -20,10 +20,10 @@ public class FriendRequest {
 
     private LocalDateTime created;
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToOne
     private User userFrom;
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToOne
     private User userTo;
 
     private boolean accepted = false;
