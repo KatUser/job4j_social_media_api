@@ -2,7 +2,7 @@ package ru.job4j.socialmediaapi.model;
 
 import lombok.*;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
 import java.util.List;
@@ -20,7 +20,7 @@ public class Post {
     @EqualsAndHashCode.Include
     private int id;
 
-    @OneToOne
+    @ManyToOne
     private User user;
 
     private LocalDateTime created;
@@ -29,6 +29,6 @@ public class Post {
 
     private String text;
 
-    @OneToMany
+    @OneToMany(fetch = FetchType.EAGER)
     private List<Picture> picture;
 }

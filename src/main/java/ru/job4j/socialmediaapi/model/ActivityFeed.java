@@ -1,8 +1,8 @@
 package ru.job4j.socialmediaapi.model;
 
+import jakarta.persistence.*;
 import lombok.*;
 
-import javax.persistence.*;
 import java.util.List;
 
 @Getter
@@ -17,10 +17,9 @@ public class ActivityFeed {
     @EqualsAndHashCode.Include
     private int id;
 
-    @OneToOne
-    @JoinColumn(name = "user_id")
+    @ManyToOne
     private User user;
 
-    @OneToMany
+    @OneToMany(fetch = FetchType.EAGER)
     private List<Post> post;
 }

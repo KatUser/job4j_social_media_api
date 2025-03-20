@@ -2,9 +2,8 @@ package ru.job4j.socialmediaapi;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 
-@SpringBootApplication (exclude = {DataSourceAutoConfiguration.class })
+@SpringBootApplication
 public class SocialMediaApiApplication {
 
 	public static void main(String[] args) {

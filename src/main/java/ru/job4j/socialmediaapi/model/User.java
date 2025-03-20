@@ -2,7 +2,7 @@ package ru.job4j.socialmediaapi.model;
 
 import lombok.*;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -27,7 +27,7 @@ public class User {
 
     private String email;
 
-    @ManyToMany
+    @OneToMany(fetch = FetchType.EAGER)
     private List<User> subscriber;
 
 }

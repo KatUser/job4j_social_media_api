@@ -2,7 +2,8 @@ package ru.job4j.socialmediaapi.model;
 
 import lombok.*;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
+
 import java.time.LocalDateTime;
 
 @Getter
@@ -19,12 +20,10 @@ public class FriendRequest {
 
     private LocalDateTime created;
 
-    @ManyToMany
-    @JoinColumn(name = "user_id")
+    @ManyToMany(fetch = FetchType.EAGER)
     private User userFrom;
 
-    @ManyToMany
-    @JoinColumn(name = "user_id")
+    @ManyToMany(fetch = FetchType.EAGER)
     private User userTo;
 
     private boolean accepted = false;
