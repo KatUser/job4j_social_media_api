@@ -3,11 +3,13 @@ package ru.job4j.socialmediaapi.model;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Getter
 @Setter
 @Entity
+@Table(name = "activity_feed")
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @AllArgsConstructor
 @NoArgsConstructor
@@ -17,9 +19,11 @@ public class ActivityFeed {
     @EqualsAndHashCode.Include
     private int id;
 
-    @ManyToOne
+    private LocalDateTime created;
+
+    @ManyToOne(cascade = CascadeType.MERGE)
     private User user;
 
-    @OneToMany(fetch = FetchType.EAGER)
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
     private List<Post> post;
 }

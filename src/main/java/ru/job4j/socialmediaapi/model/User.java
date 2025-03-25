@@ -27,7 +27,7 @@ public class User {
 
     private String email;
 
-    @OneToMany(fetch = FetchType.EAGER)
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private List<User> subscriber;
 
 }
