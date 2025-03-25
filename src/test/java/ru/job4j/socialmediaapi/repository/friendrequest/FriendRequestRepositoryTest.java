@@ -40,7 +40,7 @@ class FriendRequestRepositoryTest {
     }
 
     @Test
-    public void whenAddFriendRequest_thenUserGetsFriendRequest() {
+    public void whenAddFriendRequest_thenUserHasFriendRequest() {
         var timeNow = LocalDateTime.now();
         var user = new User();
         user.setEmail("test@email.com");
@@ -62,12 +62,93 @@ class FriendRequestRepositoryTest {
         friendRequest.setCreated(timeNow);
         friendRequest.setUserFrom(user);
         friendRequest.setUserTo(user2);
-//        friendRequest.setAccepted(false);
         friendRequestRepository.save(friendRequest);
         assertThat(friendRequestRepository.count()).isEqualTo(1);
         assertThat(friendRequest.getUserFrom()).isEqualTo(user);
         assertThat(friendRequest.getUserTo()).isEqualTo(user2);
-
     }
 
+    @Test
+    public void whenAddFriendRequest_thenCanFindFriendRequestById() {
+        var timeNow = LocalDateTime.now();
+        var user = new User();
+        user.setEmail("test@email.com");
+        user.setPassword("password");
+        user.setName("John Doe");
+        user.setRegistered(timeNow);
+        user.setSubscriber(null);
+        userRepository.save(user);
+
+        var user2 = new User();
+        user2.setEmail("test2@email.com");
+        user2.setPassword("password2");
+        user2.setName("John Doe");
+        user2.setRegistered(timeNow);
+        user2.setSubscriber(null);
+        userRepository.save(user2);
+
+        var friendRequest = new FriendRequest();
+        friendRequest.setCreated(timeNow);
+        friendRequest.setUserFrom(user);
+        friendRequest.setUserTo(user2);
+        friendRequestRepository.save(friendRequest);
+        assertThat(friendRequestRepository.findById(friendRequest.getId()).get().getId())
+                .isEqualTo(friendRequest.getId());
+    }
+
+    @Test
+    public void whenAddAndDeleteFriendRequest_thenCannotFindIt() {
+        var timeNow = LocalDateTime.now();
+        var user = new User();
+        user.setEmail("test@email.com");
+        user.setPassword("password");
+        user.setName("John Doe");
+        user.setRegistered(timeNow);
+        user.setSubscriber(null);
+        userRepository.save(user);
+
+        var user2 = new User();
+        user2.setEmail("test2@email.com");
+        user2.setPassword("password2");
+        user2.setName("John Doe");
+        user2.setRegistered(timeNow);
+        user2.setSubscriber(null);
+        userRepository.save(user2);
+
+        var friendRequest = new FriendRequest();
+        friendRequest.setCreated(timeNow);
+        friendRequest.setUserFrom(user);
+        friendRequest.setUserTo(user2);
+        friendRequestRepository.save(friendRequest);
+        friendRequestRepository.delete(friendRequest);
+        assertThat(friendRequestRepository.findById(friendRequest.getId())).isEmpty();
+    }
+
+    @Test
+    public void whenAddAndDeleteFriendRequestById_thenCannotFindIt() {
+        var timeNow = LocalDateTime.now();
+        var user = new User();
+        user.setEmail("test@email.com");
+        user.setPassword("password");
+        user.setName("John Doe");
+        user.setRegistered(timeNow);
+        user.setSubscriber(null);
+        userRepository.save(user);
+
+        var user2 = new User();
+        user2.setEmail("test2@email.com");
+        user2.setPassword("password2");
+        user2.setName("John Doe");
+        user2.setRegistered(timeNow);
+        user2.setSubscriber(null);
+        userRepository.save(user2);
+
+        var friendRequest = new FriendRequest();
+        friendRequest.setCreated(timeNow);
+        friendRequest.setUserFrom(user);
+        friendRequest.setUserTo(user2);
+        friendRequestRepository.save(friendRequest);
+        friendRequestRepository.deleteById(friendRequest.getId());
+        assertThat(friendRequestRepository.count()).isEqualTo(0);
+    }
 }
