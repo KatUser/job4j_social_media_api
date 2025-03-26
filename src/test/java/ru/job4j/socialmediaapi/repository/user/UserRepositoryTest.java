@@ -45,7 +45,7 @@ public class UserRepositoryTest {
         user1.setPassword("password");
         user1.setName("John Doe");
         var user2 = new User();
-        user2.setEmail("test@email.com");
+        user2.setEmail("test2@email.com");
         user2.setPassword("password2");
         user2.setName("John Doe");
         userRepository.save(user1);
