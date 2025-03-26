@@ -38,7 +38,7 @@ class ActivityFeedRepositoryTest {
 
 
     @Test
-    public void whenAddActivityFeed_thenUserHasActivityFeed() {
+    public void whenSaveActivityFeed_thenCanGetItById() {
         var timeNow = LocalDateTime.now();
         var user = new User();
         user.setEmail("test@email.com");
@@ -65,6 +65,36 @@ class ActivityFeedRepositoryTest {
         var activityFeedFound = activityFeedRepository.findById(activityFeed.getId());
         assertThat(activityFeedFound).isPresent();
         assertThat(activityFeedFound.get().getId()).isEqualTo(activityFeed.getId());
+    }
+
+    @Test
+    public void wheSaveActivityFeedAndDeleteIt_thenCannotGetItById() {
+        var timeNow = LocalDateTime.now();
+        var user = new User();
+        user.setEmail("test@email.com");
+        user.setPassword("password");
+        user.setName("John Doe");
+        user.setRegistered(timeNow);
+        user.setSubscriber(null);
+        userRepository.save(user);
+
+        var post = new Post();
+        post.setUser(user);
+        post.setCreated(timeNow);
+        post.setTitle("Test Post");
+        post.setText("Test Text");
+        post.setPicture(null);
+        postRepository.save(post);
+
+        var activityFeed = new ActivityFeed();
+        activityFeed.setCreated(timeNow);
+        activityFeed.setUser(user);
+        activityFeed.setPost(List.of(post));
+
+        activityFeedRepository.save(activityFeed);
+        activityFeedRepository.delete(activityFeed);
+        var activityFeedFound = activityFeedRepository.findById(activityFeed.getId());
+        assertThat(activityFeedFound).isEmpty();
     }
 
 }

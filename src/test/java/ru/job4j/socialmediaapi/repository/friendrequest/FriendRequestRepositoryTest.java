@@ -40,7 +40,7 @@ class FriendRequestRepositoryTest {
     }
 
     @Test
-    public void whenAddFriendRequest_thenUserHasFriendRequest() {
+    public void whenSaveFriendRequest_thenCanGetItById() {
         var timeNow = LocalDateTime.now();
         var user = new User();
         user.setEmail("test@email.com");
@@ -66,10 +66,11 @@ class FriendRequestRepositoryTest {
         assertThat(friendRequestRepository.count()).isEqualTo(1);
         assertThat(friendRequest.getUserFrom()).isEqualTo(user);
         assertThat(friendRequest.getUserTo()).isEqualTo(user2);
+        assertThat(friendRequestRepository.findById(friendRequest.getId())).get().isEqualTo(friendRequest);
     }
 
     @Test
-    public void whenAddFriendRequest_thenCanFindFriendRequestById() {
+    public void whenSaveFriendRequest_thenCanFindFriendRequestById() {
         var timeNow = LocalDateTime.now();
         var user = new User();
         user.setEmail("test@email.com");
@@ -97,7 +98,7 @@ class FriendRequestRepositoryTest {
     }
 
     @Test
-    public void whenAddAndDeleteFriendRequest_thenCannotFindIt() {
+    public void whenSaveAndDeleteFriendRequest_thenCannotFindIt() {
         var timeNow = LocalDateTime.now();
         var user = new User();
         user.setEmail("test@email.com");

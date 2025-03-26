@@ -25,12 +25,13 @@ public class UserRepositoryTest {
     }
 
     @Test
-    public void whenSaveUser_thenFindItById() {
+    public void whenSaveUser_thenCanFindItById() {
+        var timeNow = LocalDateTime.now();
         var user = new User();
         user.setEmail("test@email.com");
         user.setPassword("password");
         user.setName("John Doe");
-        user.setRegistered(LocalDateTime.now());
+        user.setRegistered(timeNow);
         userRepository.save(user);
         var userFound = userRepository.findById(user.getId());
         assertThat(userFound).isPresent();
@@ -38,7 +39,7 @@ public class UserRepositoryTest {
     }
 
     @Test
-    public void whenSaveUsers_thenFindAll() {
+    public void whenSaveUsers_thenCanFindAll() {
         var user1 = new User();
         user1.setEmail("test@email.com");
         user1.setPassword("password");
