@@ -41,8 +41,6 @@ class ActivityFeedRepositoryTest {
 
     @Test
     public void whenSaveActivityFeed_thenCanGetItById() {
-//        var timeNow = LocalDateTime.now();
-
         var user = new User();
         user.setEmail("test@email.com");
         user.setPassword("password");
@@ -72,8 +70,6 @@ class ActivityFeedRepositoryTest {
 
     @Test
     public void wheSaveActivityFeedAndDeleteIt_thenCannotGetItById() {
-//        var timeNow = LocalDateTime.now();
-
         var user = new User();
         user.setEmail("test@email.com");
         user.setPassword("password");
@@ -107,8 +103,6 @@ class ActivityFeedRepositoryTest {
 
     @Test
     public void wheSaveActivityFeedAndDeleteItById_thenCannotGetItById() {
-//        var timeNow = LocalDateTime.now();
-
         var user = new User();
         user.setEmail("test@email.com");
         user.setPassword("password");
