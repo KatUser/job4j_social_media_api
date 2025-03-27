@@ -28,16 +28,15 @@ class PictureRepositoryTest {
     @Autowired
     private PostRepository postRepository;
 
+    private Picture picture;
+
+    private final LocalDateTime timeNow = LocalDateTime.now();
+
     @BeforeEach
     public void setUp() {
         userRepository.deleteAll();
         postRepository.deleteAll();
         pictureRepository.deleteAll();
-    }
-
-    @Test
-    public void whenSavePicture_thenCanGetPictureById () {
-        var timeNow = LocalDateTime.now();
 
         var user = new User();
         user.setEmail("test@email.com");
@@ -53,42 +52,24 @@ class PictureRepositoryTest {
         post.setUser(user);
         postRepository.save(post);
 
-        var picture = new Picture();
+        picture = new Picture();
         picture.setPost(post);
         picture.setPath("testpath");
         pictureRepository.save(picture);
+    }
 
+    @Test
+    public void whenSavePicture_thenCanGetPictureById () {
         var pictureOptional = pictureRepository.findById(picture.getId());
 
-        assertThat(pictureRepository.findById(pictureOptional.get().getId())).isPresent();
+        assertThat(pictureOptional.get()).isEqualTo(picture);
         assertThat(pictureRepository.count()).isEqualTo(1);
         assertThat(pictureRepository.existsById(picture.getId())).isTrue();
     }
 
     @Test
     public void whenSavePictureAndDelete_thenCannotGetPictureById () {
-        var timeNow = LocalDateTime.now();
-
-        var user = new User();
-        user.setEmail("test@email.com");
-        user.setPassword("password");
-        user.setName("John Doe");
-        user.setRegistered(timeNow);
-        userRepository.save(user);
-
-        var post = new Post();
-        post.setTitle("Post Title");
-        post.setText("Post Text");
-        post.setCreated(timeNow);
-        post.setUser(user);
-        postRepository.save(post);
-
-        var picture = new Picture();
-        picture.setPost(post);
-        picture.setPath("testpath");
-        pictureRepository.save(picture);
         pictureRepository.delete(picture);
-
         var pictureOptional = pictureRepository.findById(picture.getId());
 
         assertThat(pictureRepository.count()).isEqualTo(0);
@@ -98,28 +79,7 @@ class PictureRepositoryTest {
 
     @Test
     public void whenSavePictureAndDeleteItById_thenCannotGetPictureById () {
-        var timeNow = LocalDateTime.now();
-
-        var user = new User();
-        user.setEmail("test@email.com");
-        user.setPassword("password");
-        user.setName("John Doe");
-        user.setRegistered(timeNow);
-        userRepository.save(user);
-
-        var post = new Post();
-        post.setTitle("Post Title");
-        post.setText("Post Text");
-        post.setCreated(timeNow);
-        post.setUser(user);
-        postRepository.save(post);
-
-        var picture = new Picture();
-        picture.setPost(post);
-        picture.setPath("testpath");
-        pictureRepository.save(picture);
         pictureRepository.deleteById(picture.getId());
-
         var pictureOptional = pictureRepository.findById(picture.getId());
 
         assertThat(pictureRepository.count()).isEqualTo(0);

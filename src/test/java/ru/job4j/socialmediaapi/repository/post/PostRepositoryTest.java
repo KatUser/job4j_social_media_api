@@ -23,15 +23,14 @@ class PostRepositoryTest {
     @Autowired
     private UserRepository userRepository;
 
+    private Post post;
+
+    private final LocalDateTime timeNow = LocalDateTime.now();
+
     @BeforeEach
     public void setUp() {
         userRepository.deleteAll();
         postRepository.deleteAll();
-    }
-
-    @Test
-    public void whenSavePost_ThenCanGetPostById() {
-        var timeNow = LocalDateTime.now();
 
         var user = new User();
         user.setEmail("test@email.com");
@@ -40,61 +39,34 @@ class PostRepositoryTest {
         user.setRegistered(timeNow);
         userRepository.save(user);
 
-        var post = new Post();
+        post = new Post();
         post.setTitle("Post Title");
         post.setText("Post Text");
         post.setCreated(timeNow);
         post.setUser(user);
         postRepository.save(post);
+    }
 
+    @Test
+    public void whenSavePost_ThenCanGetPostById() {
         var postOptional = postRepository.findById(post.getId());
-        assertThat(postOptional.isPresent()).isTrue();
-        assertThat(postRepository.findById(postOptional.get().getId()).get()).isEqualTo(post);
+
+        assertThat(postOptional.get()).isEqualTo(post);
         assertThat(postRepository.count()).isEqualTo(1);
     }
 
     @Test
     public void whenSavePostAndDeleteIt_ThenCannotGetPostById() {
-        var timeNow = LocalDateTime.now();
-
-        var user = new User();
-        user.setEmail("test@email.com");
-        user.setPassword("password");
-        user.setName("John Doe");
-        user.setRegistered(timeNow);
-        userRepository.save(user);
-
-        var post = new Post();
-        post.setTitle("Post Title");
-        post.setText("Post Text");
-        post.setCreated(timeNow);
-        post.setUser(user);
-        postRepository.save(post);
         postRepository.delete(post);
-
         var postOptional = postRepository.findById(post.getId());
 
         assertThat(postOptional).isEmpty();
         assertThat(postRepository.count()).isEqualTo(0);
+        assertThat(postRepository.existsById(post.getId())).isFalse();
     }
 
     @Test
     public void whenSavePostAndDeleteItById_ThenCannotGetPostById() {
-        var timeNow = LocalDateTime.now();
-
-        var user = new User();
-        user.setEmail("test@email.com");
-        user.setPassword("password");
-        user.setName("John Doe");
-        user.setRegistered(timeNow);
-        userRepository.save(user);
-
-        var post = new Post();
-        post.setTitle("Post Title");
-        post.setText("Post Text");
-        post.setCreated(timeNow);
-        post.setUser(user);
-        postRepository.save(post);
         postRepository.deleteById(post.getId());
 
         var postOptional = postRepository.findById(post.getId());

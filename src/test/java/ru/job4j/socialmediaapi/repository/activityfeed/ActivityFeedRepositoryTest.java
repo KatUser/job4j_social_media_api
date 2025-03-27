@@ -29,6 +29,8 @@ class ActivityFeedRepositoryTest {
     @Autowired
     private PostRepository postRepository;
 
+    private ActivityFeed activityFeed;
+
     private final LocalDateTime timeNow = LocalDateTime.now();
 
     @BeforeEach
@@ -36,12 +38,7 @@ class ActivityFeedRepositoryTest {
         activityFeedRepository.deleteAll();
         userRepository.deleteAll();
         postRepository.deleteAll();
-    }
-
-
-    @Test
-    public void whenSaveActivityFeed_thenCanGetItById() {
-        var user = new User();
+        User user = new User();
         user.setEmail("test@email.com");
         user.setPassword("password");
         user.setName("John Doe");
@@ -57,41 +54,25 @@ class ActivityFeedRepositoryTest {
         post.setPicture(null);
         postRepository.save(post);
 
-        var activityFeed = new ActivityFeed();
+        activityFeed = new ActivityFeed();
         activityFeed.setCreated(timeNow);
         activityFeed.setUser(user);
         activityFeed.setPost(List.of(post));
 
         activityFeedRepository.save(activityFeed);
+    }
+
+
+    @Test
+    public void whenSaveActivityFeed_thenCanGetItById() {
         var activityFeedFound = activityFeedRepository.findById(activityFeed.getId());
+
         assertThat(activityFeedFound).isPresent();
         assertThat(activityFeedFound.get().getId()).isEqualTo(activityFeed.getId());
     }
 
     @Test
     public void wheSaveActivityFeedAndDeleteIt_thenCannotGetItById() {
-        var user = new User();
-        user.setEmail("test@email.com");
-        user.setPassword("password");
-        user.setName("John Doe");
-        user.setRegistered(timeNow);
-        user.setSubscriber(null);
-        userRepository.save(user);
-
-        var post = new Post();
-        post.setUser(user);
-        post.setCreated(timeNow);
-        post.setTitle("Test Post");
-        post.setText("Test Text");
-        post.setPicture(null);
-        postRepository.save(post);
-
-        var activityFeed = new ActivityFeed();
-        activityFeed.setCreated(timeNow);
-        activityFeed.setUser(user);
-        activityFeed.setPost(List.of(post));
-
-        activityFeedRepository.save(activityFeed);
         activityFeedRepository.delete(activityFeed);
 
         var activityFeedFound = activityFeedRepository.findById(activityFeed.getId());
@@ -103,28 +84,6 @@ class ActivityFeedRepositoryTest {
 
     @Test
     public void wheSaveActivityFeedAndDeleteItById_thenCannotGetItById() {
-        var user = new User();
-        user.setEmail("test@email.com");
-        user.setPassword("password");
-        user.setName("John Doe");
-        user.setRegistered(timeNow);
-        user.setSubscriber(null);
-        userRepository.save(user);
-
-        var post = new Post();
-        post.setUser(user);
-        post.setCreated(timeNow);
-        post.setTitle("Test Post");
-        post.setText("Test Text");
-        post.setPicture(null);
-        postRepository.save(post);
-
-        var activityFeed = new ActivityFeed();
-        activityFeed.setCreated(timeNow);
-        activityFeed.setUser(user);
-        activityFeed.setPost(List.of(post));
-
-        activityFeedRepository.save(activityFeed);
         activityFeedRepository.deleteById(activityFeed.getId());
 
         var activityFeedFound = activityFeedRepository.findById(activityFeed.getId());

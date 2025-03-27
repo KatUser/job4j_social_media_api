@@ -19,52 +19,54 @@ public class UserRepositoryTest {
     @Autowired
     private UserRepository userRepository;
 
+    private User user;
+
+    LocalDateTime timeNow = LocalDateTime.now();
+
     @BeforeEach
     public void setUp() {
         userRepository.deleteAll();
-    }
-
-    @Test
-    public void whenSaveUser_thenCanFindItById() {
-        var timeNow = LocalDateTime.now();
-        var user = new User();
+        user = new User();
         user.setEmail("test@email.com");
         user.setPassword("password");
         user.setName("John Doe");
         user.setRegistered(timeNow);
         userRepository.save(user);
+    }
+
+    @Test
+    public void whenSaveUser_thenCanFindItById() {
         var userFound = userRepository.findById(user.getId());
         assertThat(userFound).isPresent();
         assertThat(userFound.get().getName()).isEqualTo(user.getName());
+        assertThat(userRepository.count()).isEqualTo(1);
     }
 
     @Test
     public void whenSaveUsers_thenCanFindAll() {
-        var user1 = new User();
-        user1.setEmail("test@email.com");
-        user1.setPassword("password");
-        user1.setName("John Doe");
         var user2 = new User();
         user2.setEmail("test2@email.com");
         user2.setPassword("password2");
         user2.setName("John Doe");
-        userRepository.save(user1);
         userRepository.save(user2);
         var usersFound = userRepository.findAll();
-        assertThat(usersFound).asList().contains(user1, user2);
+        assertThat(usersFound).asList().contains(user, user2);
     }
 
     @Test
     public void whenSaveUserAndDeleteById_thenCannotFindItById() {
-        var user = new User();
-        user.setEmail("test@email.com");
-        user.setPassword("password");
-        user.setName("John Doe");
-        user.setRegistered(LocalDateTime.now());
-        userRepository.save(user);
         userRepository.deleteById(user.getId());
         var userFound = userRepository.findById(user.getId());
         assertThat(userFound).isEmpty();
+        assertThat(userRepository.count()).isEqualTo(0);
+    }
+
+    @Test
+    public void whenSaveUserAndDeleteIt_thenCannotFindItById() {
+        userRepository.delete(user);
+        var userFound = userRepository.findById(user.getId());
+        assertThat(userFound).isEmpty();
+        assertThat(userRepository.count()).isEqualTo(0);
     }
 
 }
