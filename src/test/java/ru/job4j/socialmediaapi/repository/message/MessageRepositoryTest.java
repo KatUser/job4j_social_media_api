@@ -5,6 +5,8 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ActiveProfiles;
+import org.springframework.transaction.annotation.Transactional;
 import ru.job4j.socialmediaapi.model.Message;
 import ru.job4j.socialmediaapi.model.User;
 import ru.job4j.socialmediaapi.repository.user.UserRepository;
@@ -13,6 +15,8 @@ import java.time.LocalDateTime;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
+@ActiveProfiles("test")
+@Transactional
 @SpringBootTest
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 class MessageRepositoryTest {
