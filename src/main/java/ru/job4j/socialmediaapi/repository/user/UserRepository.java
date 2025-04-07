@@ -31,6 +31,13 @@ public interface UserRepository extends JpaRepository<User, Integer> {
                         where friendRequest.accepted = true
                         and friendRequest.userTo = :user
             """)
+    List<User> findAllAcceptedFriendRequests(@Param("user") User user);
+
+    @Query
+            ("""
+             select user.friend from User as user
+             where user = :user
+            """)
     List<User> findAllUserFriends(@Param("user") User user);
 
 }
