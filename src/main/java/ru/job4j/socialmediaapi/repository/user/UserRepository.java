@@ -35,9 +35,8 @@ public interface UserRepository extends JpaRepository<User, Integer> {
 
     @Query
             ("""
-             select user.friend from User as user
+             select user.subscriber from User as user
              where user = :user
             """)
     List<User> findAllUserFriends(@Param("user") User user);
-
 }

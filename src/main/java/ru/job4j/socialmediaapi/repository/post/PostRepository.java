@@ -1,11 +1,13 @@
 package ru.job4j.socialmediaapi.repository.post;
 
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+import ru.job4j.socialmediaapi.model.Picture;
 import ru.job4j.socialmediaapi.model.Post;
 import ru.job4j.socialmediaapi.model.User;
 
@@ -54,4 +56,18 @@ public interface PostRepository extends JpaRepository<Post, Integer> {
             """)
     Page<Post> findUserSubscibersPostsSortedByCreatedDesc(@Param("user") User user,
                                                           Pageable pageable);
+
+    @Modifying(clearAutomatically = true)
+    @Query(value = """
+            update Post as post set post.title = :title,
+                        post.text = :text,
+                        post.picture = :picture
+                    where post.id = :id
+            """)
+    int updatePostTitleAndTextAndPicture(
+                                         @Param("title") String title,
+                                         @Param("text") String text,
+                                         @Param("picture") Picture picture,
+                                         @Param("id") Integer id);
+
 }

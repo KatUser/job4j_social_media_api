@@ -18,7 +18,5 @@
     <include file="scripts/007_ddl_create_activity_feed_post_table.sql" relativeToChangelogFile="true"/>
     <include file="scripts/008_ddl_create_post_picture_table.sql" relativeToChangelogFile="true"/>
     <include file="scripts/009_ddl_create_app_user_activity_feed_table.sql" relativeToChangelogFile="true"/>
-    <include file="scripts/010_ddl_create_friend_request_table.sql" relativeToChangelogFile="true"/>
-
 
 </databaseChangeLog>
