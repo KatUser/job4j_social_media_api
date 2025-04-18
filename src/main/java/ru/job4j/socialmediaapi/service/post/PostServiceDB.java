@@ -36,9 +36,18 @@ public class PostServiceDB implements PostService {
                            String text,
                            Picture picture,
                            Integer postId) {
-        postRepository.updatePostTitleAndTextAndPicture(title, text, picture, postId);
-        picture.setPost(postRepository.findById(postId).get());
-        pictureRepository.deleteById(picture.getId());
-        pictureRepository.save(picture);
+        var currentPost = postRepository.findById(postId).get();
+        if (!currentPost.getTitle().equals(title)) {
+            currentPost.setText(text);
+        }
+        if (!currentPost.getText().equals(text)) {
+            currentPost.setText(text);
+        }
+        if (!currentPost.getPicture().contains(picture)) {
+            picture.setPost(postRepository.findById(postId).get());
+            pictureRepository.save(picture);
+            currentPost.getPicture().add(picture);
+            pictureRepository.deleteById(picture.getId());
+        }
     }
 }

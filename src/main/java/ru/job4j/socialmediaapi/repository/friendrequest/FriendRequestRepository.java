@@ -26,12 +26,5 @@ public interface FriendRequestRepository extends JpaRepository<FriendRequest, In
             """)
     int acceptFriendRequest(@Param("friendRequest") FriendRequest friendRequestId);
 
-    @Modifying(clearAutomatically = true)
-    @Query(value = """
-                update FriendRequest as friendRequest
-                            set friendRequest.accepted = false
-                                        where friendRequest.id =:friendRequestId
-            """)
-    int rejectFriendRequest(@Param("friendRequest") FriendRequest friendRequest);
 }
 

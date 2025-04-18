@@ -57,17 +57,4 @@ public interface PostRepository extends JpaRepository<Post, Integer> {
     Page<Post> findUserSubscibersPostsSortedByCreatedDesc(@Param("user") User user,
                                                           Pageable pageable);
 
-    @Modifying(clearAutomatically = true)
-    @Query(value = """
-            update Post as post set post.title = :title,
-                        post.text = :text,
-                        post.picture = :picture
-                    where post.id = :id
-            """)
-    int updatePostTitleAndTextAndPicture(
-                                         @Param("title") String title,
-                                         @Param("text") String text,
-                                         @Param("picture") Picture picture,
-                                         @Param("id") Integer id);
-
 }

@@ -28,7 +28,6 @@ public class FriendRequestServiceDB implements FriendRequestService {
     @Override
     @Transactional
     public void rejectFriendRequest(FriendRequest friendRequest) {
-        friendRequestRepository.rejectFriendRequest(friendRequest);
         var user = friendRequest.getUserFrom();
         user.getSubscriber().add(friendRequest.getUserTo());
     }
