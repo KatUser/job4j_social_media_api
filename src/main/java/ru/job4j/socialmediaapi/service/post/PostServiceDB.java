@@ -8,6 +8,9 @@ import ru.job4j.socialmediaapi.model.Post;
 import ru.job4j.socialmediaapi.repository.picture.PictureRepository;
 import ru.job4j.socialmediaapi.repository.post.PostRepository;
 
+import java.util.List;
+import java.util.Optional;
+
 @AllArgsConstructor
 @Service
 public class PostServiceDB implements PostService {
@@ -26,28 +29,35 @@ public class PostServiceDB implements PostService {
 
     @Override
     @Transactional
-    public void deletePostById(Integer postId) {
-        postRepository.deletePostById(postId);
+    public boolean deletePostById(Long postId) {
+        return postRepository.deletePostById(postId) > 0L;
     }
 
     @Override
     @Transactional
-    public void updatePostById(String title,
-                           String text,
-                           Picture picture,
-                           Integer postId) {
-        var currentPost = postRepository.findById(postId).get();
-        if (!currentPost.getTitle().equals(title)) {
-            currentPost.setText(text);
-        }
-        if (!currentPost.getText().equals(text)) {
-            currentPost.setText(text);
-        }
-        if (!currentPost.getPicture().contains(picture)) {
-            picture.setPost(postRepository.findById(postId).get());
-            pictureRepository.save(picture);
-            currentPost.getPicture().add(picture);
-            pictureRepository.deleteById(picture.getId());
-        }
+    public boolean updatePostById(Long postId,
+                                  String title,
+                                  String text,
+                                  Picture picture
+                                  ) {
+        pictureRepository.save(picture);
+        postRepository.findById(postId).get().getPicture().add(picture);
+        return postRepository.updatePostTitleAndText(postId, title, text) > 0L;
+    }
+
+    @Override
+    @Transactional
+    public Post savePost(Post post) {
+        return postRepository.save(post);
+    }
+
+    @Override
+    public Optional<Post> getPostById(Long postId) {
+        return postRepository.findById(postId);
+    }
+
+    @Override
+    public List<Post> getAllPosts() {
+        return postRepository.findAll();
     }
 }

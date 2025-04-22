@@ -15,7 +15,7 @@ import java.util.List;
 @NoArgsConstructor
 public class ActivityFeed {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @EqualsAndHashCode.Include
     private int id;
 

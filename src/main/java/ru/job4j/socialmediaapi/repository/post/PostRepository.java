@@ -7,14 +7,13 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
-import ru.job4j.socialmediaapi.model.Picture;
 import ru.job4j.socialmediaapi.model.Post;
 import ru.job4j.socialmediaapi.model.User;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
-public interface PostRepository extends JpaRepository<Post, Integer> {
+public interface PostRepository extends JpaRepository<Post, Long> {
 
     List<Post> findByUser(User user);
 
@@ -27,9 +26,10 @@ public interface PostRepository extends JpaRepository<Post, Integer> {
             update Post set title = :title, text = :text
                     where id = :id
             """)
-    int updatePostTitleAndText(@Param("title") String title,
-                               @Param("text") String text,
-                               @Param("id") Integer id);
+    int updatePostTitleAndText(@Param("id") Long id,
+                               @Param("title") String title,
+                               @Param("text") String text
+                               );
 
     @Modifying(clearAutomatically = true)
     @Query(value = """
@@ -44,7 +44,7 @@ public interface PostRepository extends JpaRepository<Post, Integer> {
             delete from Post as post
                        where post.id = :id
             """)
-    int deletePostById(@Param("id") Integer id);
+    int deletePostById(@Param("id") Long id);
 
     @Query("""
             select post from Post as post

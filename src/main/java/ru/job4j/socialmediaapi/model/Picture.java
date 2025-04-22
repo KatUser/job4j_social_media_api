@@ -12,7 +12,7 @@ import lombok.*;
 @NoArgsConstructor
 public class Picture {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @EqualsAndHashCode.Include
     private int id;
 
