@@ -9,8 +9,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
-import ru.job4j.socialmediaapi.model.Picture;
 import ru.job4j.socialmediaapi.model.Post;
+import ru.job4j.socialmediaapi.service.picture.PictureService;
 import ru.job4j.socialmediaapi.service.post.PostService;
 
 @Validated
@@ -21,6 +21,8 @@ import ru.job4j.socialmediaapi.service.post.PostService;
 public class PostController {
 
     private final PostService postService;
+
+    private final PictureService pictureService;
 
     @GetMapping("/{postId}")
     public ResponseEntity<Post> getPost(@PathVariable("postId")
@@ -34,7 +36,10 @@ public class PostController {
 
     @PostMapping
     public ResponseEntity<Post> createPost(@RequestBody Post post) {
+        post.getPicture().forEach(pictureService::savePicture);
+        post.getPicture().forEach(p -> p.setPost(post));
         postService.savePost(post);
+
         var uri = ServletUriComponentsBuilder.fromCurrentRequestUri()
                 .path("/{id}")
                 .buildAndExpand(post.getId())
@@ -45,24 +50,16 @@ public class PostController {
     }
 
     @PutMapping
-    public ResponseEntity<Post> updatePost(Long postId,
-                                           String title,
-                                           String text,
-                                           Picture picture
-    ) {
-        if (postService.updatePostById(postId, title, text, picture)) {
+    public ResponseEntity<Void> updatePost(@RequestBody Post post) {
+        if (postService.updatePost(post)) {
             return ResponseEntity.ok().build();
         }
         return ResponseEntity.notFound().build();
     }
 
     @PatchMapping
-    public ResponseEntity<Post> patchPost(Long postId,
-                                           String title,
-                                           String text,
-                                           Picture picture
-    ) {
-        if (postService.updatePostById(postId, title, text, picture)) {
+    public ResponseEntity<Void> patchPost(@RequestBody Post post) {
+        if (postService.updatePost(post)) {
             return ResponseEntity.ok().build();
         }
         return ResponseEntity.notFound().build();

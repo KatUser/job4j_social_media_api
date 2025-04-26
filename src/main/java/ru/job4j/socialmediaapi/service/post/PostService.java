@@ -1,7 +1,6 @@
 package ru.job4j.socialmediaapi.service.post;
 
 import org.springframework.transaction.annotation.Transactional;
-import ru.job4j.socialmediaapi.model.Picture;
 import ru.job4j.socialmediaapi.model.Post;
 
 import java.util.List;
@@ -10,13 +9,10 @@ import java.util.Optional;
 public interface PostService {
 
     @Transactional
-    void createPost(Post post, Picture picture);
+    void createPost(Post post);
 
     @Transactional
-    boolean updatePostById(Long postId, String title,
-                           String text,
-                           Picture picture
-                           );
+    boolean updatePost(Post post);
 
     @Transactional
     boolean deletePostById(Long postId);

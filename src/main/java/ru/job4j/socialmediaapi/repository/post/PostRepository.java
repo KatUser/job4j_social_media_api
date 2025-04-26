@@ -23,13 +23,11 @@ public interface PostRepository extends JpaRepository<Post, Long> {
 
     @Modifying(clearAutomatically = true)
     @Query(value = """
-            update Post set title = :title, text = :text
-                    where id = :id
+            update Post post set post.title = :#{#post.title},
+                        post.text = :#{#post.title}
+                    where post.id = :#{#post.id}
             """)
-    int updatePostTitleAndText(@Param("id") Long id,
-                               @Param("title") String title,
-                               @Param("text") String text
-                               );
+    int updatePost(@Param("post") Post post);
 
     @Modifying(clearAutomatically = true)
     @Query(value = """
