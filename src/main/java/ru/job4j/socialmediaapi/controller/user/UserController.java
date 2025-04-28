@@ -15,6 +15,7 @@ import ru.job4j.socialmediaapi.service.user.UserService;
 @Slf4j
 @AllArgsConstructor
 @RestController
+@ControllerAdvice
 @RequestMapping("api/user")
 public class UserController {
 
