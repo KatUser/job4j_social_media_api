@@ -4,7 +4,6 @@ import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -44,9 +43,7 @@ public class PostController {
                 .path("/{id}")
                 .buildAndExpand(post.getId())
                 .toUri();
-        return ResponseEntity.status(HttpStatus.CREATED)
-                .location(uri)
-                .body(post);
+        return ResponseEntity.created(uri).body(post);
     }
 
     @PutMapping
