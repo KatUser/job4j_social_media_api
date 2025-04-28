@@ -4,7 +4,7 @@
 		"name": "Social Media Api",
 		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
 		"_exporter_id": "15234625",
-		"_collection_link": "https://planetary-crater-323773.postman.co/workspace/1e672fc7-4acc-4509-a3ab-1234eb990fd3/collection/15234625-456d3a80-84b6-4955-bead-34023873b092?action=share&source=collection_link&creator=15234625"
+		"_collection_link": "https://planetary-crater-323773.postman.co/workspace/Social_Media_API~1e672fc7-4acc-4509-a3ab-1234eb990fd3/collection/15234625-456d3a80-84b6-4955-bead-34023873b092?action=share&source=collection_link&creator=15234625"
 	},
 	"item": [
 		{
@@ -129,6 +129,27 @@
 						"method": "GET",
 						"header": [],
 						"url": "http://localhost:8080/api/posts"
+					},
+					"response": []
+				},
+				{
+					"name": "/postbyusers Получить все посты by users",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "[1, 5, 7, 10]",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:8080/api/posts/postIds"
 					},
 					"response": []
 				},
