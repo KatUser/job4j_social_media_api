@@ -46,7 +46,7 @@ public class PostController {
                 .toUri();
         return ResponseEntity.status(HttpStatus.CREATED)
                 .location(uri)
-                .body(null);
+                .body(post);
     }
 
     @PutMapping
