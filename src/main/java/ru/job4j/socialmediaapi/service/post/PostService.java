@@ -23,4 +23,5 @@ public interface PostService {
     Optional<Post> getPostById(Long postId);
 
     List<Post> getAllPosts();
+
 }

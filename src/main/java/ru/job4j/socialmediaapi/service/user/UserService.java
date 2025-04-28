@@ -1,6 +1,7 @@
 package ru.job4j.socialmediaapi.service.user;
 
 import org.springframework.transaction.annotation.Transactional;
+import ru.job4j.socialmediaapi.dto.UserDto;
 import ru.job4j.socialmediaapi.model.User;
 
 import java.util.List;
@@ -20,4 +21,6 @@ public interface UserService {
     Optional<User> findById(Long id);
 
     List<User> getAllUsers();
+
+    List<UserDto> getUsersDtos(List<Long> userIds);
 }

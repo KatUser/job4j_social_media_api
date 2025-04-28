@@ -55,4 +55,9 @@ public interface PostRepository extends JpaRepository<Post, Long> {
     Page<Post> findUserSubscibersPostsSortedByCreatedDesc(@Param("user") User user,
                                                           Pageable pageable);
 
+    @Query("""
+        select post from Post as post where post.user.id = :userId
+        """
+    )
+    Post findPostByUserOrderByCreatedDesc(@Param("userId") Long userId);
 }

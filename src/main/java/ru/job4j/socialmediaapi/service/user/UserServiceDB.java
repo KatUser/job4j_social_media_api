@@ -3,9 +3,12 @@ package ru.job4j.socialmediaapi.service.user;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import ru.job4j.socialmediaapi.dto.UserDto;
+import ru.job4j.socialmediaapi.mappers.UserMapper;
 import ru.job4j.socialmediaapi.model.User;
 import ru.job4j.socialmediaapi.repository.user.UserRepository;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -14,6 +17,8 @@ import java.util.Optional;
 public class UserServiceDB implements UserService {
 
     private final UserRepository userRepository;
+
+    private final UserMapper userMapper;
 
     @Override
     @Transactional
@@ -41,5 +46,13 @@ public class UserServiceDB implements UserService {
     @Override
     public List<User> getAllUsers() {
         return userRepository.findAll();
+    }
+
+    @Override
+    public List<UserDto> getUsersDtos(List<Long> userIds) {
+        List<UserDto> userDtos = new ArrayList<>();
+        List<User> users = userRepository.findAllById(userIds);
+        users.forEach(u -> userDtos.add(userMapper.getUserDto(u)));
+        return userDtos;
     }
 }

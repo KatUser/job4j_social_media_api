@@ -54,4 +54,5 @@ public class PostServiceDB implements PostService {
     public List<Post> getAllPosts() {
         return postRepository.findAll();
     }
+
 }
