@@ -48,7 +48,7 @@ public class PostController {
     }
 
     @PutMapping
-    public ResponseEntity<Void> updatePost(@RequestBody Post post) {
+    public ResponseEntity<Void> updatePost(@Valid @RequestBody Post post) {
         if (postService.updatePost(post)) {
             return ResponseEntity.ok().build();
         }
@@ -56,7 +56,7 @@ public class PostController {
     }
 
     @PatchMapping
-    public ResponseEntity<Void> patchPost(@RequestBody Post post) {
+    public ResponseEntity<Void> patchPost(@Valid @RequestBody Post post) {
         if (postService.updatePost(post)) {
             return ResponseEntity.ok().build();
         }
@@ -64,7 +64,10 @@ public class PostController {
     }
 
     @DeleteMapping("/{postId}")
-    public ResponseEntity<Void> deletePostById(@PathVariable Long postId) {
+    public ResponseEntity<Void> deletePostById(@PathVariable("postId")
+                                                   @NotNull
+                                                   @Min(value = 1, message = "номер ресурса должен быть 1 и более")
+                                                   Long postId) {
         if (postService.deletePostById(postId)) {
             return ResponseEntity.noContent().build();
         }

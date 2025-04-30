@@ -36,14 +36,12 @@ class MessageRepositoryTest {
         user.setEmail("test@email.com");
         user.setPassword("Password@1");
         user.setName("JohnDoe");
-        user.setSubscriber(null);
         userRepository.save(user);
 
         User user2 = new User();
         user2.setEmail("test2@email.com");
         user2.setPassword("Password@2");
         user2.setName("TestTest");
-        user2.setSubscriber(null);
         userRepository.save(user2);
 
         message = new Message();

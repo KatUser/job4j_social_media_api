@@ -29,7 +29,6 @@ import java.util.Map;
 public class CommonExceptionHandler {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(CommonExceptionHandler.class.getSimpleName());
-    private final ObjectMapper objectMapper;
 
     @ExceptionHandler(value = {ConstraintViolationException.class})
     @ResponseStatus(HttpStatus.BAD_REQUEST)

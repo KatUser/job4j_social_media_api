@@ -1,6 +1,8 @@
 package ru.job4j.socialmediaapi.model;
 
 import com.fasterxml.jackson.annotation.*;
+import jakarta.annotation.Nullable;
+import jakarta.validation.constraints.Pattern;
 import lombok.*;
 
 import jakarta.persistence.*;
@@ -29,10 +31,15 @@ public class Post {
     private LocalDateTime created = LocalDateTime.now()
             .truncatedTo(ChronoUnit.SECONDS);
 
+    @Pattern(regexp = "^\\S[\\w|\\W\\s]*$",
+            message = """
+                    заголовок должен состоять хотя бы из одного символа
+                    и не начинаться с пробела""")
     private String title;
 
     private String text;
 
+    @Nullable
     @OneToMany(fetch = FetchType.EAGER)
     private List<Picture> picture;
 }

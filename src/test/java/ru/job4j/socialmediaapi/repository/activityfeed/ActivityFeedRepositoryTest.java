@@ -50,7 +50,6 @@ class ActivityFeedRepositoryTest {
         post.setUser(user);
         post.setTitle("Test Post");
         post.setText("Test Text");
-        post.setPicture(null);
         postRepository.save(post);
 
         activityFeed = new ActivityFeed();
