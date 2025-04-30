@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 
 @Getter
@@ -19,7 +20,8 @@ public class ActivityFeed {
     @EqualsAndHashCode.Include
     private int id;
 
-    private LocalDateTime created;
+    private LocalDateTime created = LocalDateTime.now()
+            .truncatedTo(ChronoUnit.SECONDS);
 
     @ManyToOne(cascade = CascadeType.MERGE)
     private User user;

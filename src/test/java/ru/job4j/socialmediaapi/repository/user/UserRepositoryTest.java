@@ -9,8 +9,6 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.transaction.annotation.Transactional;
 import ru.job4j.socialmediaapi.model.User;
 
-import java.time.LocalDateTime;
-
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 @ActiveProfiles("test")
@@ -24,16 +22,13 @@ public class UserRepositoryTest {
 
     private User user;
 
-    LocalDateTime timeNow = LocalDateTime.now();
-
     @BeforeEach
     public void setUp() {
         userRepository.deleteAll();
         user = new User();
         user.setEmail("test@email.com");
-        user.setPassword("password");
-        user.setName("John Doe");
-        user.setRegistered(timeNow);
+        user.setPassword("Password@1");
+        user.setName("JohnDoe");
         userRepository.save(user);
     }
 
@@ -49,8 +44,8 @@ public class UserRepositoryTest {
     public void whenSaveUsers_thenCanFindAll() {
         var user2 = new User();
         user2.setEmail("test2@email.com");
-        user2.setPassword("password2");
-        user2.setName("John Doe");
+        user2.setPassword("Password@1");
+        user2.setName("SecondUser");
         userRepository.save(user2);
         var usersFound = userRepository.findAll();
         assertThat(usersFound).asList().contains(user, user2);

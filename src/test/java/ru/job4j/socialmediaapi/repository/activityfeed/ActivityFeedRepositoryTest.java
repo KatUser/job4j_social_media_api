@@ -13,7 +13,6 @@ import ru.job4j.socialmediaapi.model.User;
 import ru.job4j.socialmediaapi.repository.post.PostRepository;
 import ru.job4j.socialmediaapi.repository.user.UserRepository;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
@@ -35,8 +34,6 @@ class ActivityFeedRepositoryTest {
 
     private ActivityFeed activityFeed;
 
-    private final LocalDateTime timeNow = LocalDateTime.now();
-
     @BeforeEach
     public void setUp() {
         activityFeedRepository.deleteAll();
@@ -44,22 +41,19 @@ class ActivityFeedRepositoryTest {
         postRepository.deleteAll();
         User user = new User();
         user.setEmail("test@email.com");
-        user.setPassword("password");
-        user.setName("John Doe");
-        user.setRegistered(timeNow);
+        user.setPassword("Password@1");
+        user.setName("JohnDoe");
         user.setSubscriber(null);
         userRepository.save(user);
 
         var post = new Post();
         post.setUser(user);
-        post.setCreated(timeNow);
         post.setTitle("Test Post");
         post.setText("Test Text");
         post.setPicture(null);
         postRepository.save(post);
 
         activityFeed = new ActivityFeed();
-        activityFeed.setCreated(timeNow);
         activityFeed.setUser(user);
         activityFeed.setPost(List.of(post));
 

@@ -1,5 +1,6 @@
 package ru.job4j.socialmediaapi.controller.post;
 
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -34,7 +35,7 @@ public class PostController {
     }
 
     @PostMapping
-    public ResponseEntity<Post> createPost(@RequestBody Post post) {
+    public ResponseEntity<Post> createPost(@Valid @RequestBody Post post) {
         post.getPicture().forEach(pictureService::savePicture);
         post.getPicture().forEach(p -> p.setPost(post));
         postService.savePost(post);

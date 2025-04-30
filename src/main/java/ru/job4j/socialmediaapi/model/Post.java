@@ -6,6 +6,7 @@ import lombok.*;
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 
 @Getter
@@ -25,7 +26,8 @@ public class Post {
     @ManyToOne
     private User user;
 
-    private LocalDateTime created;
+    private LocalDateTime created = LocalDateTime.now()
+            .truncatedTo(ChronoUnit.SECONDS);
 
     private String title;
 

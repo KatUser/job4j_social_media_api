@@ -11,8 +11,6 @@ import ru.job4j.socialmediaapi.model.Message;
 import ru.job4j.socialmediaapi.model.User;
 import ru.job4j.socialmediaapi.repository.user.UserRepository;
 
-import java.time.LocalDateTime;
-
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 @ActiveProfiles("test")
@@ -29,8 +27,6 @@ class MessageRepositoryTest {
 
     private Message message;
 
-    private final LocalDateTime timeNow = LocalDateTime.now();
-
     @BeforeEach
     public void setUp() {
         messageRepository.deleteAll();
@@ -38,22 +34,19 @@ class MessageRepositoryTest {
 
         User user = new User();
         user.setEmail("test@email.com");
-        user.setPassword("password");
-        user.setName("John Doe");
-        user.setRegistered(timeNow);
+        user.setPassword("Password@1");
+        user.setName("JohnDoe");
         user.setSubscriber(null);
         userRepository.save(user);
 
         User user2 = new User();
         user2.setEmail("test2@email.com");
-        user2.setPassword("password2");
-        user2.setName("John Doe");
-        user2.setRegistered(timeNow);
+        user2.setPassword("Password@2");
+        user2.setName("TestTest");
         user2.setSubscriber(null);
         userRepository.save(user2);
 
         message = new Message();
-        message.setCreated(timeNow);
         message.setText("Test message");
         message.setUserTo(user);
         message.setUserFrom(user2);

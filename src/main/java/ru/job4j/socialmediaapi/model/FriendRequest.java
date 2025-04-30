@@ -5,6 +5,7 @@ import lombok.*;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 
 @Getter
 @Setter
@@ -18,7 +19,8 @@ public class FriendRequest {
     @EqualsAndHashCode.Include
     private int id;
 
-    private LocalDateTime created;
+    private LocalDateTime created = LocalDateTime.now()
+            .truncatedTo(ChronoUnit.SECONDS);
 
     @ManyToOne
     private User userFrom;

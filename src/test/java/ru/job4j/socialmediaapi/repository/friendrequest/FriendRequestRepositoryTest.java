@@ -13,8 +13,6 @@ import ru.job4j.socialmediaapi.repository.activityfeed.ActivityFeedRepository;
 import ru.job4j.socialmediaapi.repository.post.PostRepository;
 import ru.job4j.socialmediaapi.repository.user.UserRepository;
 
-import java.time.LocalDateTime;
-
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 @ActiveProfiles("test")
@@ -41,8 +39,6 @@ class FriendRequestRepositoryTest {
 
     private FriendRequest friendRequest;
 
-    private final LocalDateTime timeNow = LocalDateTime.now();
-
 
     @BeforeEach
     public void setUp() {
@@ -53,22 +49,19 @@ class FriendRequestRepositoryTest {
 
         user = new User();
         user.setEmail("test@email.com");
-        user.setPassword("password");
-        user.setName("John Doe");
-        user.setRegistered(timeNow);
+        user.setPassword("Password@1");
+        user.setName("JohnDoe");
         user.setSubscriber(null);
         userRepository.save(user);
 
         user2 = new User();
         user2.setEmail("test2@email.com");
-        user2.setPassword("password2");
-        user2.setName("John Doe");
-        user2.setRegistered(timeNow);
+        user2.setPassword("Password@2");
+        user2.setName("TestName");
         user2.setSubscriber(null);
         userRepository.save(user2);
 
         friendRequest = new FriendRequest();
-        friendRequest.setCreated(timeNow);
         friendRequest.setUserFrom(user);
         friendRequest.setUserTo(user2);
         friendRequestRepository.save(friendRequest);
@@ -76,7 +69,8 @@ class FriendRequestRepositoryTest {
 
     @Test
     public void whenSaveFriendRequest_thenCanGetItById() {
-        var friendRequestOptional = friendRequestRepository.findById(friendRequest.getId());
+        var friendRequestOptional =
+                friendRequestRepository.findById(friendRequest.getId());
 
         assertThat(friendRequestRepository.count()).isEqualTo(1);
         assertThat(friendRequest.getUserFrom()).isEqualTo(user);
@@ -88,7 +82,8 @@ class FriendRequestRepositoryTest {
     @Test
     public void whenSaveFriendRequestAndDelete_thenCannotGetItById() {
         friendRequestRepository.delete(friendRequest);
-        var friendRequestOptional = friendRequestRepository.findById(friendRequest.getId());
+        var friendRequestOptional =
+                friendRequestRepository.findById(friendRequest.getId());
 
         assertThat(friendRequestOptional).isEmpty();
         assertThat(friendRequestRepository.count()).isEqualTo(0);
@@ -97,7 +92,8 @@ class FriendRequestRepositoryTest {
     @Test
     public void whenSaveFriendRequestAndDeleteById_thenCannotGetItById() {
         friendRequestRepository.deleteById(friendRequest.getId());
-        var friendRequestOptional = friendRequestRepository.findById(friendRequest.getId());
+        var friendRequestOptional =
+                friendRequestRepository.findById(friendRequest.getId());
 
         assertThat(friendRequestOptional).isEmpty();
         assertThat(friendRequestRepository.count()).isEqualTo(0);
@@ -105,6 +101,7 @@ class FriendRequestRepositoryTest {
 
     @Test
     public void whenSaveFriendRequests_thenCanGetItFromRepository() {
-        assertThat(friendRequestRepository.findAll()).asList().containsExactly(friendRequest);
+        assertThat(friendRequestRepository.findAll()).asList()
+                .containsExactly(friendRequest);
     }
 }
