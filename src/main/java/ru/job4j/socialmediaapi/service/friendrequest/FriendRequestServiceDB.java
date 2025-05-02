@@ -37,7 +37,7 @@ public class FriendRequestServiceDB implements FriendRequestService {
     */
     @Override
     @Transactional
-    public void deleteFromFriends(Integer userId, Integer friendId) {
+    public void deleteFromFriends(Long userId, Long friendId) {
         friendRequestRepository.deleteFromFriends(userId);
         var friendRequest = friendRequestRepository.findById(userId).get();
         friendRequest.getUserTo().getSubscriber().remove(friendRequest.getUserFrom());

@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 import ru.job4j.socialmediaapi.model.FriendRequest;
 
 @Repository
-public interface FriendRequestRepository extends JpaRepository<FriendRequest, Integer> {
+public interface FriendRequestRepository extends JpaRepository<FriendRequest, Long> {
 
     @Modifying(clearAutomatically = true)
     @Query(value = """
@@ -16,7 +16,7 @@ public interface FriendRequestRepository extends JpaRepository<FriendRequest, In
                             set friendRequest.accepted = false
                                         where friendRequest.userFrom.id = :userFrom
             """)
-    int deleteFromFriends(@Param("userFrom")Integer userFrom);
+    int deleteFromFriends(@Param("userFrom")Long userFrom);
 
     @Modifying(clearAutomatically = true)
     @Query(value = """

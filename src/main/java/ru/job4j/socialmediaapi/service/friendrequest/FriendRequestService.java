@@ -12,7 +12,7 @@ public interface FriendRequestService {
     void rejectFriendRequest(FriendRequest friendRequest);
 
     @Transactional
-    void deleteFromFriends(Integer userId, Integer friendId);
+    void deleteFromFriends(Long userId, Long friendId);
 
     @Transactional
     void sendFriendRequest(FriendRequest friendRequest);

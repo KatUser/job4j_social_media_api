@@ -39,17 +39,17 @@ class ActivityFeedRepositoryTest {
         activityFeedRepository.deleteAll();
         userRepository.deleteAll();
         postRepository.deleteAll();
-        User user = new User();
+
+        var user = new User();
         user.setEmail("test@email.com");
         user.setPassword("Password@1");
         user.setName("JohnDoe");
-        user.setSubscriber(null);
         userRepository.save(user);
 
         var post = new Post();
-        post.setUser(user);
         post.setTitle("Test Post");
         post.setText("Test Text");
+        post.setUser(user);
         postRepository.save(post);
 
         activityFeed = new ActivityFeed();
@@ -58,7 +58,6 @@ class ActivityFeedRepositoryTest {
 
         activityFeedRepository.save(activityFeed);
     }
-
 
     @Test
     public void whenSaveActivityFeed_thenCanGetItById() {
