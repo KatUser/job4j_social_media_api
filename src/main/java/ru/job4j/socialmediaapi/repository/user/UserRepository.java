@@ -57,4 +57,10 @@ public interface UserRepository extends JpaRepository<User, Long> {
             where user.id =:#{#user.id}
             """)
     int update(@Param("user") User user);
+
+    Optional<User> findByName(String email);
+
+    Boolean existsByEmail(String email);
+
+    Boolean existsByName(String username);
 }

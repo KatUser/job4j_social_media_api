@@ -26,7 +26,7 @@ public class UsersController {
     private final UserService userService;
 
     @Operation(
-            summary = "Получение всех пользователей.",
+            summary = "Получение всех пользователей",
             description = """
                     Получение всех пользователей в приложении.
                     При успешном выполнении метода возвращается код 200 и список с объектами типа User в теле ответа""")

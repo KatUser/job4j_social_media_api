@@ -27,7 +27,7 @@ public class PicturesController {
     private final PictureService pictureService;
 
     @Operation(
-            summary = "Получение всех фотографий.",
+            summary = "Получение всех фотографий в приложении",
             description = """
                     Получение всех фотографий в приложении.
                     При успешном выполнении метода возвращается код 200
